@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Luis Jimenez Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Luis Jimenez Portfolio</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html#banner">Home</a></li>
+											<li><a href="index.html#one">About Me</a></li>
+											<li><a href="index.html#three">Main Project</a></li>
+											<li><a href="index.html#two">Projects</a></li>
+											<li><a href="index.html#footer">Contact</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>General Conditions Report</h2>
+							<font size="+0.5"><b>Created and Designed in SQL, Power BI and Power BI Report Builder</b></font><br>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Project Description</h3>
+								<a class="icon brands fa-github"><span class="labels"> Go to Github for:</span></a><br>
+								&nbsp&nbsp<a href="https://github.com/LJimenezPerez/PortfolioProjects/blob/e2bb35f56a18a854d7d231d494c9b9af8c2d9ec4/Report%20Builder%20Project.sql" target="_blank" rel="noopener noreferrer"> Data Table</span></a><br>
+								&nbsp&nbsp<a href="https://github.com/LJimenezPerez/PortfolioProjects/blob/e2bb35f56a18a854d7d231d494c9b9af8c2d9ec4/Project%20Description.sql" target="_blank" rel="noopener noreferrer"> Project Description Table</span></a>
+								<br>
+								<br>
+								<p><font color="black">This project includes a wide variety of data cleaning and numerous functions in SQL. Also, many formulas in DAX and in the Power BI Report Builder
+									so that the data tells a story</font>
+									</p>
+								<br>
+								<body>
+								<!--.container{padding: 30px;}-->
+								<div class="container">
+									<h3><center>General Conditions Dashboard</center></h3>
+								<embed src="images/gcgraph.jpg" width="100%" height="620px"/>
+								<h3></h3>	
+									<h3><center>General Conditions Cost Table</center></h3>
+								<embed src="images/gctable.jpg" width="100%" height="620px"/>
+								<h3></h3>
+									<h3><center>General Conditions Report Builder</center></h3>
+								<embed src="PDFs/Portfolio GC Report.pdf" type="application/pdf" width="100%" height="620px"/>
+								</div>
+								</body>
+
+				<!-- Three -->
+				
+				<section id="threepage" class= "wrapper style3 special" style="background-color: white" >
+					<div class="inner">
+						<h3><center><font size="+3">Step-by-Step</font></center></h3>
+						<ul class="features">
+							<li class="icon fa-file-alt">
+								<h3>Job Description Table</h3>
+								<p><font color="black">This includes the description of all the jobs and using SQL to clean and organize the data accordingly so it is in the best shape to be visualized.</font></p>
+							</li>
+							<li class="icon solid fa-code">
+								<h3>Codes Table</h3>
+								<p><font color="black">This includes the descritpion of all the codes where the costs will be allocated.</font></p>
+							</li>
+							<li class="icon solid fa-dollar-sign">
+								<h3>Job Cost Table for Power BI Report Builder</h3>
+								<p><font color="black">This includes the costs of all the jobs specifically shaped towards the Power BI Report Builder. 
+									Using various window functions, the data is in order to bring the desired results.</font></p>
+							</li>
+							<li class="icon solid fa-calculator">
+								<h3>Formulas in Power BI Report Builder</h3>
+								<p><font color="black">These are a set of formulas to get the neccesary numbers in a good format to to meet the requirements of the report.</font></p>
+							</li>
+							<li class="icon solid fa-dollar-sign">
+								<h3>Job Cost Table for Power BI</h3>
+								<p><font color="black">This includes the costs of all the jobs specifically shaped towards the Power BI. Designing the table with specific columns for a successful Star Schema format.</font></p>
+							</li>
+							<li class="icon solid fa-star">
+								<h3>Star-Schema in Power BI</h3>
+								<p><font color="black">Relationship model for better use of the tables created specific for this purpose.</font></p>
+							</li>
+						
+						</ul>
+					</div>
+				</section>
+			
+			
+								<!--<p>
+									<br>
+									CREATE PROCEDURE RBJCCDGC<br>
+									AS<br>
+									<br>
+									<font size="+2"><b><u>Create CTE of the Raw Data</u></b></font><br>
+									<br>
+									WITH ActualTable AS (<br>
+									<br>
+									SELECT<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) AS JKey,<br>
+										&nbsp&nbsp a.JCCo,<br>
+										&nbsp&nbsp a.Job,<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) + ',' + CAST(a.PhaseGroup AS VARCHAR) + ','<br>
+										&nbsp&nbsp &nbsp&nbsp + CAST(a.Phase AS VARCHAR) AS PCKey,<br>
+										&nbsp&nbsp CAST(a.PhaseGroup AS VARCHAR) + ',' + CAST(a.CostType AS VARCHAR) AS CTKey,<br>
+										&nbsp&nbsp CAST(a.VendorGroup AS VARCHAR) + ',' + CAST(ISNULL(CAST(a. Vendor AS VARCHAR),<br>
+										&nbsp&nbsp &nbsp&nbsp CAST(a.Source AS VARCHAR)) AS VARCHAR) AS VKey,<br>
+										&nbsp&nbsp CAST(a.GLCo AS VARCHAR) + ',' + CAST(a.GLTransAcct AS VARCHAR) AS GLKey,<br>
+										&nbsp&nbsp ISNULL(a.JCCo, a.APCo) AS HQKey,<br>
+										&nbsp&nbsp DENSE_RANK() OVER(PARTITION BY JKey ORDER BY JKey,a.Mth) AS MthIndex,<br>
+										&nbsp&nbsp CAST(a.Mth AS Date) AS Mth,<br>
+										&nbsp&nbsp a.ActualCost,<br>
+										<br>
+									<font size="+2"><b><u>Determine if previous month has a value to populate</u></b></font><br>
+									<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b<br>
+										&nbsp&nbsp WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)) IS NULL<br>
+										&nbsp&nbsp THEN 0<br>
+									ELSE (CAST(1 AS Float) / CAST(COUNT(a.Phase) OVER (PARTITION BY a.JCCo, a.Job, a.Mth, a.Phase ORDER BY a.JCCo, a.Job, a.Mth) AS Float))<br>
+										&nbsp&nbsp *<br>
+										&nbsp&nbsp ISNULL((SELECT SUM(ActualCost)  FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)), 0)<br>
+									END AS PrevAmount,<br>
+									<br>
+									<font size="+2"><b><u>Difference from previous value</u></b></font><br>
+									<br>
+										&nbsp&nbsp a.ActualCost<br>
+										&nbsp&nbsp -<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b<br>
+										&nbsp&nbsp WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)) IS NULL<br>
+										&nbsp&nbsp THEN 0<br>
+									ELSE (CAST(1 AS Float) / CAST(COUNT(a.Phase) OVER (PARTITION BY a.JCCo, a.Job, a.Mth, a.Phase ORDER BY a.JCCo, a.Job, a.Mth) AS Float))<br>
+										&nbsp&nbsp *<br>
+										&nbsp&nbsp ISNULL((SELECT SUM(ActualCost)  FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job 
+										&nbsp&nbsp &nbsp&nbsp AND a.PhaseGroup=b.PhaseGroup AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)), 0)<br>
+									END AS Diff,<br>
+										&nbsp&nbsp a.EstCost,<br>
+										&nbsp&nbsp SUM(a.EstCost) OVER (PARTITION BY a.JCCo, a.Job ORDER BY a.JCCo, a.Job, a.Mth) AS EstCostRT,<br>
+										<br>
+									CASE WHEN a.ActualCost = 0 OR b.GSF = 0 OR b.GSF IS NULL THEN 0<br>
+									ELSE a.ActualCost / b.GSF END AS GSFMOS,<br>
+										&nbsp&nbsp b.Duration,<br>
+										&nbsp&nbsp b.GSF,<br>
+										&nbsp&nbsp b.SuspSlab,<br>
+										<br>
+										<font size="+2"><b><u>Total Monthly cost by each row of the month</u></b></font><br>
+									<br>
+										&nbsp&nbsp (CAST(1 AS Float) / CAST(COUNT(a.Phase) OVER (PARTITION BY a.JCCo, a.Job, a.Mth ORDER BY a.JCCo, a.Job, a.Mth) AS Float))<br>
+										&nbsp&nbsp *<br>
+										&nbsp&nbsp (CASE WHEN (SUM(a.EstCost) OVER (PARTITION BY a.JCCo, a.Job ORDER BY a.JCCo, a.Job, a.Mth)) = 0 OR b.Duration = 0 THEN 0<br>
+										&nbsp&nbsp ELSE (SUM(a.EstCost) OVER (PARTITION BY a.JCCo, a.Job ORDER BY a.JCCo, a.Job, a.Mth)) / b.Duration END) AS ESTCostMOS<br>
+										<br>
+									FROM<br> 
+									PortfolioProject..JCCD AS a<br>
+									LEFT OUTER JOIN dbo.JCJMD AS b ON a.JCCo = b.JCCo AND a.Job = b.Job<br>
+									WHERE (a.Phase LIKE '01%') ),<br>
+									<br>
+									<font size="+2"><b><u>Create CTE to add extra row with the previous month cost if needed</u></b></font><br>
+									<br>
+									LastMthCost AS<br>
+										&nbsp&nbsp (<br>
+									SELECT<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) AS JKey,<br>
+										&nbsp&nbsp a.JCCo,<br>
+										&nbsp&nbsp a.Job,<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) + ',' + CAST(a.PhaseGroup AS VARCHAR) + ','<br>
+										&nbsp&nbsp &nbsp&nbsp + CAST(a.Phase AS VARCHAR) AS PCKey,<br>
+										&nbsp&nbsp CAST(a.PhaseGroup AS VARCHAR) + ',' + CAST(a.CostType AS VARCHAR) AS CTKey,<br>
+										&nbsp&nbsp CAST(a.VendorGroup AS VARCHAR) + ',' + CAST(ISNULL(CAST(a. Vendor AS VARCHAR), CAST(a.Source AS VARCHAR)) AS VARCHAR) AS VKey,<br>
+										&nbsp&nbsp CAST(a.GLCo AS VARCHAR) + ',' + CAST(a.GLTransAcct AS VARCHAR) AS GLKey,<br>
+										&nbsp&nbsp ISNULL(a.JCCo, a.APCo) AS HQKey,<br>
+										&nbsp&nbsp DENSE_RANK() OVER(PARTITION BY a.JCCo, a.Job ORDER BY a.JCCo, a.Job,a.Mth) AS MthIndex,<br>
+										&nbsp&nbsp CAST(DATEADD(Month, -1, a.Mth) AS Date) AS Mth,<br>
+										<br>
+										<font size="+2"><b><u>Previous 1 month cost</u></b></font><br>
+									<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b<br>
+										&nbsp&nbsp WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)) IS NULL<br>
+									THEN 0<br>
+									END AS ActualCost,<br>
+									<br>
+									<font size="+2"><b><u>Previous 2 month cost</u></b></font><br>
+									<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -2, a.Mth)) IS NULL<br>
+									THEN 0<br>
+									ELSE (CAST(1 AS Float) / CAST(COUNT(a.Phase) OVER (PARTITION BY a.JCCo, a.Job, a.Mth, a.Phase ORDER BY a.JCCo, a.Job, a.Mth) AS Float))<br>
+										&nbsp&nbsp *<br>
+										&nbsp&nbsp ISNULL((SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -2, a.Mth)), 0)<br>
+									END AS PrevCost,<br>
+									<br>
+									<font size="+2"><b><u>Difference between previous 1 month and previous 2 month cost</u></b></font><br>
+									<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -1, a.Mth)) IS NULL<br>
+									THEN 0 END<br>
+										&nbsp&nbsp -<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -2, a.Mth)) IS NULL<br>
+									THEN 0<br>
+									ELSE (CAST(1 AS Float) / CAST(COUNT(a.Phase) OVER (PARTITION BY a.JCCo, a.Job, a.Mth, a.Phase ORDER BY a.JCCo, a.Job, a.Mth) AS Float))<br>
+										&nbsp&nbsp *<br>
+										&nbsp&nbsp ISNULL((SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, -2, a.Mth)), 0)<br>
+									END	AS Diff,<br>
+									<br>
+										&nbsp&nbsp NULL AS EstCost,<br>
+										&nbsp&nbsp NULL AS EstCostRT,<br>
+										&nbsp&nbsp NULL AS GSFMOS,<br>
+										&nbsp&nbsp b.Duration,<br>
+										&nbsp&nbsp b.GSF,<br>
+										&nbsp&nbsp b.SuspSlab,<br>
+										&nbsp&nbsp NULL AS ESTCostMOS<br>
+									FROM PortfolioProject..JCCD AS a<br>
+									LEFT OUTER JOIN dbo.JCJMD AS b ON a.JCCo = b.JCCo AND a.Job = b.Job<br>
+									WHERE (a.Phase LIKE '01%')) ,<br>
+									<br>
+									<font size="+2"><b><u>Create CTE to add extra row with the next month cost if needed</u></b></font><br>
+									<br>
+									NextMonth AS (<br>
+									<br>
+									SELECT<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) AS JKey,<br>
+										&nbsp&nbsp a.JCCo,<br>
+										&nbsp&nbsp a.Job,<br>
+										&nbsp&nbsp CAST(a.JCCo AS VARCHAR) + ',' + RTRIM(CAST(a.Job AS VARCHAR)) + ',' + CAST(a.PhaseGroup AS VARCHAR) + ','<br>
+										&nbsp&nbsp &nbsp&nbsp + CAST(a.Phase AS VARCHAR) AS PCKey,<br>
+										&nbsp&nbsp CAST(a.PhaseGroup AS VARCHAR) + ',' + CAST(a.CostType AS VARCHAR) AS CTKey,<br>
+										&nbsp&nbsp CAST(a.VendorGroup AS VARCHAR) + ',' + CAST(ISNULL(CAST(a. Vendor AS VARCHAR),<br>
+										&nbsp&nbsp &nbsp&nbsp CAST(a.Source AS VARCHAR)) AS VARCHAR) AS VKey,<br>
+										&nbsp&nbsp CAST(a.GLCo AS VARCHAR) + ',' + CAST(a.GLTransAcct AS VARCHAR) AS GLKey,<br>
+										&nbsp&nbsp ISNULL(a.JCCo, a.APCo) AS HQKey,<br>
+										&nbsp&nbsp DENSE_RANK() OVER(PARTITION BY a.JCCo, a.Job ORDER BY a.JCCo, a.Job,a.Mth) AS MthIndex,<br>
+										&nbsp&nbsp CAST(DATEADD(Month, 1, a.Mth) AS Date) AS Mth,<br>
+										<br>
+										<font size="+2"><b><u>Next 1 month cost</u></b></font><br>
+									<br>
+									CASE WHEN (SELECT SUM(ActualCost)<br>
+										&nbsp&nbsp FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job AND a.PhaseGroup=b.PhaseGroup<br>
+										&nbsp&nbsp &nbsp&nbsp AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, 1, a.Mth)) = 0<br>
+									THEN ISNULL((SELECT SUM(ActualCost)  FROM PortfolioProject..JCCD AS b WHERE a.JCCo=b.JCCo AND a.Job=b.Job<br>
+									&nbsp&nbsp &nbsp&nbsp AND a.PhaseGroup=b.PhaseGroup AND a.Phase=b.Phase AND b.Mth=DATEADD(Month, 1, a.Mth)), 0)<br>
+									END AS ActualCost,<br>
+
+										&nbsp&nbsp NULL AS PrevCost,<br>
+										&nbsp&nbsp NULL AS Diff,<br>
+										&nbsp&nbsp NULL AS EstCost,<br>
+										&nbsp&nbsp NULL AS EstCostRT,<br>
+										&nbsp&nbsp NULL AS GSFMOS,<br>
+										&nbsp&nbsp b.Duration,<br>
+										&nbsp&nbsp b.GSF,<br>
+										&nbsp&nbsp b.SuspSlab,<br>
+										&nbsp&nbsp NULL AS ESTCostMOS<br>
+									FROM PortfolioProject..JCCD AS a<br>
+									LEFT OUTER JOIN dbo.JCJMD AS b ON a.JCCo = b.JCCo AND a.Job = b.Job<br>
+									WHERE (a.Phase LIKE '01%') )<br>
+									<br>
+									<font size="+2"><b><u>Bring all the CTEs together</u></b></font><br>
+									<br>
+									SELECT * FROM ActualTable<br>
+									UNION ALL<br>
+									SELECT * FROM NextMonth<br>
+									UNION ALL<br>
+									SELECT * FROM LastMthCost<br>
+								
+								</p>-->
+								<hr />
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li>Contact:</li>
+						<br>
+						<br>
+						<li><a href="https://www.linkedin.com/in/luis-jimenez-p/" target="_blank" rel="noopener noreferrer" class="icon brands fa-linkedin"><span class="labels"> Luis Jimenez</span></a></li> 
+						<br>
+						<li><a href="#" class="icon solid fa-envelope"><span class="labels"> LuisJoseJimenezP@gmail.com</span></a></li>
+						<br>
+						<li><a href="https://github.com/LJimenezPerez/PortfolioProjects/" target="_blank" rel="noopener noreferrer" class="icon brands fa-github"><span class="labels"> Luis Jimenez </span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; HTML5 UP</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

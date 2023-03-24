@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Luis Jimenez Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Luis Jimenez Portfolio</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html#banner">Home</a></li>
+											<li><a href="index.html#one">About Me</a></li>
+											<li><a href="ReportBuilder.html#three">Main Project</a></li>
+											<li><a href="index.html#two">Projects</a></li>
+											<li><a href="index.html#footer">Contact</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Nashville Housing Data Cleaning</h2>
+							<font size="+0.5"><b>Created and Designed in SQL</b></font><br>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>SQL Script</h3>
+								<a href="https://github.com/LJimenezPerez/PortfolioProjects/blob/e2bb35f56a18a854d7d231d494c9b9af8c2d9ec4/Data%20Cleaning%20Project.sql" target="_blank" rel="noopener noreferrer" class="icon brands fa-github"><span class="labels"> Go to Github </span></a></li>
+								<p>
+									<br>
+									<font size="+2"><b><u>Total Nashville Housing Data</u></b></font><br>
+									<br>
+									SELECT * FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									<font size="+2"><b><u>Standardize Date format</u></b></font><br>
+									<br>
+									SELECT SaleDateConv, SaleDate<br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD SaleDateConv Date<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET SaleDateConv = CONVERT(Date, SaleDate)<br>
+
+									<br>
+									<font size="+2"><b><u>Populate Property Address</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp a.ParcelID,<br>
+										&nbsp&nbsp a.PropertyAddress,<br>
+										&nbsp&nbsp b.ParcelID,<br>
+										&nbsp&nbsp b.PropertyAddress,<br>
+										&nbsp&nbsp ISNULL(a.PropertyAddress,b.PropertyAddress)<br>
+										<br>
+									FROM PortfolioProject..NashvilleHousing AS a<br>
+									JOIN PortfolioProject..NashvilleHousing AS b<br>
+										&nbsp&nbsp ON a.ParcelID = b.ParcelID<br>
+										&nbsp&nbsp AND a.UniqueID <> b.UniqueID<br>
+									WHERE a.PropertyAddress IS NULL<br>
+									<br>
+									<font size="+2"><b><u>Update Table</u></b></font><br>
+									<br>
+									UPDATE a <br>
+									SET PropertyAddress = ISNULL(a.PropertyAddress,b.PropertyAddress)<br>
+									<br>
+									FROM PortfolioProject..NashvilleHousing AS a<br>
+									JOIN PortfolioProject..NashvilleHousing AS b<br>
+										&nbsp&nbsp ON a.ParcelID = b.ParcelID<br>
+										&nbsp&nbsp AND a.UniqueID <> b.UniqueID<br>
+									WHERE a.PropertyAddress IS NULL<br>
+
+									<br>
+									<font size="+2"><b><u>Breaking out Address into Address, City and State</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp SUBSTRING(PropertyAddress,1,CHARINDEX(',',PropertyAddress)-1) AS Address,<br>
+										&nbsp&nbsp SUBSTRING(PropertyAddress,CHARINDEX(',',PropertyAddress)+1, LEN(PropertyAddress)) AS City<br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD PropertySplitAddress VARCHAR(300)<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET PropertySplitAddress = SUBSTRING(PropertyAddress,1,CHARINDEX(',',PropertyAddress)-1)<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD PropertySplitCity VARCHAR(300)<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET PropertySplitCity = SUBSTRING(PropertyAddress,CHARINDEX(',',PropertyAddress)+1, LEN(PropertyAddress))<br>
+									<br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp OwnerAddress,<br>
+										&nbsp&nbsp PARSENAME(REPLACE(OwnerAddress, ',','.'),3) AS OwnerSplitAddress,<br>
+										&nbsp&nbsp PARSENAME(REPLACE(OwnerAddress, ',','.'),2) AS OwnerSplitCity,<br>
+										&nbsp&nbsp PARSENAME(REPLACE(OwnerAddress, ',','.'),1) AS OwnerSplitState<br>
+										<br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD OwnerSplitAddress VARCHAR(300)<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD OwnerSplitCity VARCHAR(300)<br>
+									<br>
+									ALTER TABLE NashvilleHousing<br>
+									ADD OwnerSplitState VARCHAR(300)<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET OwnerSplitAddress = PARSENAME(REPLACE(OwnerAddress, ',','.'),3)<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET OwnerSplitCity = PARSENAME(REPLACE(OwnerAddress, ',','.'),2)<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',','.'),1)<br>
+									<br>
+									<font size="+2"><b><u>Replace Y and N for Yes and No</u></b></font><br>
+									<br>
+									SELECT<br>
+										&nbsp&nbsp SoldAsVacant,<br>
+									CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'<br>
+										&nbsp&nbsp WHEN SoldAsVacant = 'N' THEN 'No'<br>
+										&nbsp&nbsp ELSE SoldAsVacant END <br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									UPDATE NashvilleHousing<br>
+									SET SoldAsVacant = <br>
+									<br>
+									CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'<br>
+										&nbsp&nbsp WHEN SoldAsVacant = 'N' THEN 'No'<br>
+										&nbsp&nbsp ELSE SoldAsVacant END <br>
+
+									<br>
+									<font size="+2"><b><u>Remove Duplicates</u></b></font><br>
+									<br>
+									WITH RowNumCTE AS(<br>
+									SELECT <br>
+										&nbsp&nbsp *,<br>
+										&nbsp&nbsp ROW_NUMBER() OVER ( PARTITION BY ParcelID, PropertyAddress, SalePrice, SaleDate, LegalReference<br>
+										&nbsp&nbspORDER BY UniqueID) AS ID<br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									)<br>
+									DELETE FROM RowNumCTE<br>
+									WHERE ID > 1<br>
+
+									<br>
+									<font size="+2"><b><u>Delete Unused Columns</u></b></font><br>
+									<br>
+									SELECT *<br>
+									FROM PortfolioProject..NashvilleHousing<br>
+									<br>
+									ALTER TABLE PortfolioProject..NashvilleHousing<br>
+									DROP COLUMN<br>
+										&nbsp&nbsp OwnerAddress,<br>
+										&nbsp&nbsp TaxDistrict,<br>
+										&nbsp&nbsp PropertyAddress,<br>
+										&nbsp&nbsp SaleDate<br>
+								</p>
+								<hr />
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li>Contact:</li>
+						<br>
+						<br>
+						<li><a href="https://www.linkedin.com/in/luis-jimenez-p/" target="_blank" rel="noopener noreferrer" class="icon brands fa-linkedin"><span class="labels"> Luis Jimenez</span></a></li> 
+						<br>
+						<li><a href="#" class="icon solid fa-envelope"><span class="labels"> LuisJoseJimenezP@gmail.com</span></a></li>
+						<br>
+						<li><a href="https://github.com/LJimenezPerez/PortfolioProjects/" target="_blank" rel="noopener noreferrer"class="icon brands fa-github"><span class="labels"> Luis Jimenez </span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; HTML5 UP</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

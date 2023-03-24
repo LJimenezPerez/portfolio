@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Luis Jimenez Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Luis Jimenez Portfolio</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html#banner">Home</a></li>
+											<li><a href="index.html#one">About Me</a></li>
+											<li><a href="ReportBuilder.html#three">Main Project</a></li>
+											<li><a href="index.html#two">Projects</a></li>
+											<li><a href="index.html#footer">Contact</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>COVID-19 Data Exploration</h2>
+							<font size="+0.5"><b>Created and Designed in SQL</b></font><br>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>SQL Script</h3>
+								<a href="https://github.com/LJimenezPerez/PortfolioProjects/blob/e2bb35f56a18a854d7d231d494c9b9af8c2d9ec4/COVID%20Project.sql" target="_blank" rel="noopener noreferrer"class="icon brands fa-github"><span class="labels"> Go to Github </span></a></li>
+								<p>
+									<br>
+									<font size="+2"><b><u>Total Data of Countries</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Continent,<br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp Date,<br>
+										&nbsp&nbsp Total_Cases,<br>
+										&nbsp&nbsp New_Cases,<br>
+										&nbsp&nbsp Total_Deaths,<br>
+										&nbsp&nbsp Population<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									ORDER BY 1,2<br>
+									
+									<br>
+									<font size="+2"><b><u>Total Cases vs Total Deaths</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Continent,<br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp Date,<br>
+										&nbsp&nbsp Total_Cases,<br>
+										&nbsp&nbsp New_Cases,<br>
+										&nbsp&nbsp Total_Deaths,<br>
+										&nbsp&nbsp (Total_Deaths/Total_Cases)*100 AS DeathPercentage<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									ORDER BY 1,2<br>
+									
+									<br>
+									<font size="+2"><b><u>Total Cases vs Population</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Continent,<br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp Date,<br>
+										&nbsp&nbsp Total_Cases,<br>
+										&nbsp&nbsp Population,<br>
+										&nbsp&nbsp (Total_Cases/Population)*100 AS CovidPercentage<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									ORDER BY 1,2<br>
+									
+									<br>
+									<font size="+2"><b><u>Countries with High Infection Rate vs Population</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Continent,<br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp Population,<br>
+										&nbsp&nbsp MAX(Total_Cases) AS HighestInfectionCount,<br>
+										&nbsp&nbsp MAX((Total_Cases/Population))*100 AS PercentPopulationInfected<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									GROUP BY Location, Continent, Population<br>
+									ORDER BY PercentPopulationInfected DESC<br>
+									
+									<br>
+									<font size="+2"><b><u>Countries with Highest Death Count per Population</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Continent,<br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp MAX(CAST(Total_Deaths AS INT)) AS TotalDeathCount<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									GROUP BY Location, Continent<br>
+									ORDER BY TotalDeathCount DESC<br>
+									
+									<br>
+									<font size="+2"><b><u>Continents with Highest Death Count</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp MAX(CAST(Total_Deaths AS INT)) AS TotalDeathCount<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NULL AND Location NOT LIKE '%income'<br>
+									GROUP BY Location<br>
+									ORDER BY TotalDeathCount DESC<br>
+									
+									<br>
+									<font size="+2"><b><u>Income with Highest Death Count</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Location,<br>
+										&nbsp&nbsp MAX(CAST(Total_Deaths AS INT)) AS TotalDeathCount<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NULL AND Location LIKE '%income'<br>
+									GROUP BY Location<br>
+									ORDER BY TotalDeathCount DESC<br>
+									
+									<br>
+									<font size="+2"><b><u>Global Numbers by Date</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp Date,<br>
+										&nbsp&nbsp SUM(New_Cases) AS TotalCases,<br>
+										&nbsp&nbsp SUM(CAST(New_Deaths AS INT)) AS TotalDeaths,<br>
+										&nbsp&nbsp SUM(CAST(New_Deaths AS INT))/SUM(New_Cases)*100 AS DeathPercentage<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									GROUP BY Date<br>
+									ORDER BY 1,2<br>
+									
+									<br>
+									<font size="+2"><b><u>Global Numbers</u></b></font><br>
+									<br>
+									SELECT <br>
+										&nbsp&nbsp SUM(New_Cases) AS TotalCases,<br>
+										&nbsp&nbsp SUM(CAST(New_Deaths AS INT)) AS TotalDeaths,<br>
+										&nbsp&nbsp SUM(CAST(New_Deaths AS INT))/SUM(New_Cases)*100 AS DeathPercentage<br>
+									FROM PortfolioProject..CovidDeaths<br>
+									WHERE Continent IS NOT NULL<br>
+									ORDER BY 1,2<br>
+									
+									<br>
+									<font size="+2"><b><u>Total Population vs Vaccinations</u></b></font><br>
+									<br>
+									WITH PopVsVac AS<br>
+									(<br>
+									SELECT <br>
+										&nbsp&nbsp a.Continent,<br>
+										&nbsp&nbsp a.Location,<br>
+										&nbsp&nbsp a.Date,<br>
+										&nbsp&nbsp a.Population,<br>
+										&nbsp&nbsp b.New_Vaccinations,<br>
+										&nbsp&nbsp SUM(CONVERT(FLOAT,b.New_Vaccinations)) <br>
+										&nbsp&nbsp&nbsp&nbsp OVER (PARTITION BY b.Location ORDER BY b.Location, b.Date) AS VaccinesRt<br>
+										<br>
+									FROM PortfolioProject..CovidDeaths AS a<br>
+									JOIN PortfolioProject..CovidVaccinations AS b<br>
+									ON a.Location = b.Location AND a.Date = b.Date<br>
+									WHERE a.Continent IS NOT NULL<br>
+									)<br>
+									<br>
+									SELECT *, (VaccinesRt/Population)*100 AS VaccinationsPercentage<br>
+									FROM PopVsVac<br>
+									
+									<br>
+									<font size="+2"><b><u>Create View to Visualize</u></b></font><br>
+									
+									<br>
+									CREATE VIEW PopulationVaccinatedPercent AS<br>
+									<br>
+									WITH PopVsVac AS<br>
+									(<br>
+									SELECT <br>
+										&nbsp&nbsp a.Continent,<br>
+										&nbsp&nbsp a.Location,<br>
+										&nbsp&nbsp a.Date,<br>
+										&nbsp&nbsp a.Population,<br>
+										&nbsp&nbsp b.New_Vaccinations,<br>
+										&nbsp&nbsp SUM(CONVERT(FLOAT,b.New_Vaccinations)) <br>
+										&nbsp&nbsp&nbsp&nbsp OVER (PARTITION BY b.Location ORDER BY b.Location, b.Date) AS VaccinesRt<br>
+										<br>
+									FROM PortfolioProject..CovidDeaths AS a<br>
+									JOIN PortfolioProject..CovidVaccinations AS b<br>
+									ON a.Location = b.Location AND a.Date = b.Date<br>
+									WHERE a.Continent IS NOT NULL<br>
+									)<br>
+									<br>
+									SELECT *, (VaccinesRt/Population)*100 AS VaccinationsPercentage<br>
+									FROM PopVsVac<br>
+								</p>
+								<hr />
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li>Contact:</li>
+						<br>
+						<br>
+						<li><a href="https://www.linkedin.com/in/luis-jimenez-p/" target="_blank" rel="noopener noreferrer" class="icon brands fa-linkedin"><span class="labels"> Luis Jimenez</span></a></li> 
+						<br>
+						<li><a href="#" class="icon solid fa-envelope"><span class="labels"> LuisJoseJimenezP@gmail.com</span></a></li>
+						<br>
+						<li><a href="https://github.com/LJimenezPerez/PortfolioProjects/" target="_blank" rel="noopener noreferrer"class="icon brands fa-github"><span class="labels"> Luis Jimenez </span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; HTML5 UP</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
